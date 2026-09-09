@@ -1,5 +1,27 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Lobby from './pages/Lobby';
+import Battle from './pages/Battle';
+import WorldMap from './pages/WorldMap';
+import Timeline from './pages/Timeline';
+import Replay from './pages/Replay';
+import Analytics from './pages/Analytics';
+import Admin from './pages/Admin';
+
 export default function App() {
   return (
-    <div/>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Lobby />} />
+          <Route path="/battle" element={<Battle />} />
+          <Route path="/world" element={<WorldMap />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/replay" element={<Replay />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
