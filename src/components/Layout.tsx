@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
 import {
   Shield, Swords, Globe, Clock, Play, BarChart3, Settings, MessageSquare, AlertTriangle,
-  Bell, ChevronLeft, ChevronRight, Zap
+  Bell, ChevronLeft, ChevronRight, Zap, Book
 } from 'lucide-react';
 
 const navItems = [
@@ -15,6 +15,7 @@ const navItems = [
   { path: '/replay', icon: Play, label: 'Replay' },
   { path: '/analytics', icon: BarChart3, label: 'Analytics' },
   { path: '/admin', icon: Settings, label: 'Admin' },
+  { path: '/docs', icon: Book, label: 'Docs' },
 ];
 
 export default function Layout() {

@@ -9,6 +9,7 @@ import Timeline from './pages/Timeline';
 import Replay from './pages/Replay';
 import Analytics from './pages/Analytics';
 import Admin from './pages/Admin';
+import Docs from './pages/Docs';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/replay" element={<Replay />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/docs" element={<Docs />} />
         </Route>
       </Routes>
     </BrowserRouter>

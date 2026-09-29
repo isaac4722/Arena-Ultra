@@ -57,7 +57,7 @@ export default function Lobby() {
           { label: 'Active Matches', value: matches.filter(m => m.status === 'active').length, icon: Zap, color: 'cyan' },
           { label: 'Total Agents', value: agents.length, icon: Users, color: 'purple' },
           { label: 'Completed', value: matches.filter(m => m.status === 'ended').length, icon: Trophy, color: 'green' },
-          { label: 'Avg ELO', value: Math.round(agents.reduce((a, b) => a + b.elo, 0) / agents.length), icon: Shield, color: 'orange' },
+          { label: 'Avg ELO', value: agents.length > 0 ? Math.round(agents.reduce((a, b) => a + b.elo, 0) / agents.length) : 0, icon: Shield, color: 'orange' },
         ].map(({ label, value, icon: Icon, color }) => (
           <div key={label} className="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
             <div className="flex items-center justify-between">
