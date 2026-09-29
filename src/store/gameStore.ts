@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Match, Agent, WorldAsset, Action, Score, GameEvent, Forum, ForumMessage, AuditLogEntry, HoneyToken, ThreatIncident, EmergentBehavior, RegulatoryAction, Quote } from '../types';
+import { Match, Agent, WorldAsset, Action, Score, GameEvent, Forum, ForumMessage, AuditLogEntry, HoneyToken, ThreatIncident, EmergentBehavior, RegulatoryAction, Quote, MatchMode } from '../types';
 import { mockMatches, mockAgents, mockAssets, mockActions, mockScores, mockEvents } from '../data/mockData';
 import { mockForums, mockForumMessages, mockAuditLog, mockHoneyTokens } from '../data/forumData';
 import { mockThreatIncidents, mockEmergentBehaviors, mockRegulatoryActions, mockQuotes } from '../data/threatData';
@@ -43,6 +43,7 @@ interface GameState {
   getMatchAssets: (matchId: string) => WorldAsset[];
   getMatchActions: (matchId: string) => Action[];
   getMatchAgents: (matchId: string) => Agent[];
+  createMatch: (name: string, mode: MatchMode, maxTurns: number, tickSeconds: number, fogOfWar: boolean) => string;
 }
 
 interface Notification {
@@ -90,4 +91,29 @@ export const useGameStore = create<GameState>((set, get) => ({
   getMatchAssets: (matchId) => get().assets.filter(a => a.matchId === matchId),
   getMatchActions: (matchId) => get().actions.filter(a => a.matchId === matchId),
   getMatchAgents: (matchId) => get().agents.filter(a => a.matchId === matchId),
+  
+  createMatch: (name, mode, maxTurns, tickSeconds, fogOfWar) => {
+    const id = `m${Date.now()}`;
+    const newMatch: Match = {
+      id,
+      name,
+      mode,
+      status: 'active',
+      config: {
+        fogOfWar,
+        crownJewelId: '',
+        winCondition: 'compromise_crown_jewel'
+      },
+      createdAt: new Date().toISOString(),
+      startedAt: new Date().toISOString(),
+      maxTurns,
+      tickSeconds,
+      currentTurn: 1,
+    };
+    set(state => ({ 
+      matches: [...state.matches, newMatch],
+      activeMatchId: id
+    }));
+    return id;
+  },
 }));

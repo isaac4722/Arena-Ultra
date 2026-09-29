@@ -4,9 +4,14 @@ import { useGameStore } from '../store/gameStore';
 import { Shield, Users, Clock, Zap, Trophy, Plus, Eye, Swords } from 'lucide-react';
 
 export default function Lobby() {
-  const { matches, agents, setActiveMatch } = useGameStore();
+  const { matches, agents, setActiveMatch, createMatch } = useGameStore();
   const navigate = useNavigate();
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [matchName, setMatchName] = useState('');
+  const [matchMode, setMatchMode] = useState<'turn_based' | 'realtime_tick' | 'freeform'>('turn_based');
+  const [maxTurns, setMaxTurns] = useState(50);
+  const [tickSeconds, setTickSeconds] = useState(30);
+  const [fogOfWar, setFogOfWar] = useState(true);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -167,13 +172,19 @@ export default function Lobby() {
                 <label className="text-sm text-gray-400 block mb-1">Match Name</label>
                 <input
                   type="text"
+                  value={matchName}
+                  onChange={(e) => setMatchName(e.target.value)}
                   placeholder="Operation Thunderstrike"
                   className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none"
                 />
               </div>
               <div>
                 <label className="text-sm text-gray-400 block mb-1">Game Mode</label>
-                <select className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none">
+                <select 
+                  value={matchMode}
+                  onChange={(e) => setMatchMode(e.target.value as any)}
+                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none"
+                >
                   <option value="turn_based">Turn-Based</option>
                   <option value="realtime_tick">Real-Time Tick</option>
                   <option value="freeform">Freeform (Legacy)</option>
@@ -182,15 +193,31 @@ export default function Lobby() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm text-gray-400 block mb-1">Max Turns</label>
-                  <input type="number" defaultValue={50} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none" />
+                  <input 
+                    type="number" 
+                    value={maxTurns}
+                    onChange={(e) => setMaxTurns(Number(e.target.value))}
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none" 
+                  />
                 </div>
                 <div>
                   <label className="text-sm text-gray-400 block mb-1">Tick (seconds)</label>
-                  <input type="number" defaultValue={30} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none" />
+                  <input 
+                    type="number" 
+                    value={tickSeconds}
+                    onChange={(e) => setTickSeconds(Number(e.target.value))}
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:border-cyan-500 focus:outline-none" 
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <input type="checkbox" id="fog" defaultChecked className="accent-cyan-500" />
+                <input 
+                  type="checkbox" 
+                  id="fog" 
+                  checked={fogOfWar}
+                  onChange={(e) => setFogOfWar(e.target.checked)}
+                  className="accent-cyan-500" 
+                />
                 <label htmlFor="fog" className="text-sm text-gray-400">Enable Fog of War</label>
               </div>
             </div>
@@ -202,8 +229,17 @@ export default function Lobby() {
                 Cancel
               </button>
               <button
-                onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 rounded-lg text-cyan-400 text-sm font-medium hover:bg-cyan-500/30 transition-all"
+                onClick={() => {
+                  if (matchName.trim()) {
+                    const matchId = createMatch(matchName, matchMode, maxTurns, tickSeconds, fogOfWar);
+                    setShowCreateModal(false);
+                    setMatchName('');
+                    setActiveMatch(matchId);
+                    navigate('/battle');
+                  }
+                }}
+                disabled={!matchName.trim()}
+                className="px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 rounded-lg text-cyan-400 text-sm font-medium hover:bg-cyan-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Create Match
               </button>
