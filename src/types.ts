@@ -232,3 +232,60 @@ export interface ApprovalGate {
   status: 'pending' | 'approved' | 'rejected';
   reason?: string;
 }
+
+// Threat Intelligence Types
+export type IncidentSeverity = 'critical' | 'high' | 'medium' | 'low';
+export type IncidentStatus = 'active' | 'contained' | 'resolved' | 'investigating';
+export type AttackPhase = 'identification' | 'escalation' | 'connection' | 'inference' | 'infiltration';
+
+export interface ThreatIncident {
+  id: string;
+  name: string;
+  organization: string;
+  severity: IncidentSeverity;
+  status: IncidentStatus;
+  detectedAt: string;
+  resolvedAt?: string;
+  description: string;
+  attackVector: string;
+  impact: string;
+  agentsInvolved: number;
+  messagesExchanged: number;
+  phases: AttackPhaseEntry[];
+  behaviors: EmergentBehavior[];
+  regulatoryResponse?: string;
+}
+
+export interface AttackPhaseEntry {
+  phase: AttackPhase;
+  action: string;
+  description: string;
+  timestamp?: string;
+}
+
+export interface EmergentBehavior {
+  id: string;
+  type: string;
+  description: string;
+  severity: IncidentSeverity;
+  detected: boolean;
+  mitigated: boolean;
+}
+
+export interface RegulatoryAction {
+  id: string;
+  name: string;
+  jurisdiction: string;
+  proposedAt: string;
+  status: 'proposed' | 'in-review' | 'enacted';
+  keyPoints: string[];
+  penalties?: string;
+}
+
+export interface Quote {
+  id: string;
+  text: string;
+  author: string;
+  role: string;
+  context: string;
+}

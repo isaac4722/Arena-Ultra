@@ -1,7 +1,8 @@
 import { create } from 'zustand';
-import { Match, Agent, WorldAsset, Action, Score, GameEvent, Forum, ForumMessage, AuditLogEntry, HoneyToken } from '../types';
+import { Match, Agent, WorldAsset, Action, Score, GameEvent, Forum, ForumMessage, AuditLogEntry, HoneyToken, ThreatIncident, EmergentBehavior, RegulatoryAction, Quote } from '../types';
 import { mockMatches, mockAgents, mockAssets, mockActions, mockScores, mockEvents } from '../data/mockData';
 import { mockForums, mockForumMessages, mockAuditLog, mockHoneyTokens } from '../data/forumData';
+import { mockThreatIncidents, mockEmergentBehaviors, mockRegulatoryActions, mockQuotes } from '../data/threatData';
 
 interface GameState {
   // Data
@@ -15,6 +16,10 @@ interface GameState {
   forumMessages: ForumMessage[];
   auditLog: AuditLogEntry[];
   honeyTokens: HoneyToken[];
+  threatIncidents: ThreatIncident[];
+  emergentBehaviors: EmergentBehavior[];
+  regulatoryActions: RegulatoryAction[];
+  quotes: Quote[];
   
   // UI State
   activeMatchId: string;
@@ -59,6 +64,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   forumMessages: mockForumMessages,
   auditLog: mockAuditLog,
   honeyTokens: mockHoneyTokens,
+  threatIncidents: mockThreatIncidents,
+  emergentBehaviors: mockEmergentBehaviors,
+  regulatoryActions: mockRegulatoryActions,
+  quotes: mockQuotes,
   
   activeMatchId: 'm1',
   selectedAssetId: null,

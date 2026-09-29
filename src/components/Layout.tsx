@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useGameStore } from '../store/gameStore';
 import {
-  Shield, Swords, Globe, Clock, Play, BarChart3, Settings, MessageSquare,
+  Shield, Swords, Globe, Clock, Play, BarChart3, Settings, MessageSquare, AlertTriangle,
   Bell, ChevronLeft, ChevronRight, Zap
 } from 'lucide-react';
 
@@ -10,6 +10,7 @@ const navItems = [
   { path: '/battle', icon: Swords, label: 'Battle' },
   { path: '/world', icon: Globe, label: 'World Map' },
   { path: '/forums', icon: MessageSquare, label: 'Forums' },
+  { path: '/threats', icon: AlertTriangle, label: 'Threat Intel' },
   { path: '/timeline', icon: Clock, label: 'Timeline' },
   { path: '/replay', icon: Play, label: 'Replay' },
   { path: '/analytics', icon: BarChart3, label: 'Analytics' },
