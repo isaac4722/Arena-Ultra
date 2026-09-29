@@ -140,3 +140,95 @@ export interface LeaderboardEntry {
   losses: number;
   winRate: number;
 }
+
+// Forum Types - Professional Communication Architecture
+export type ForumStatus = 'active' | 'locked' | 'archived';
+export type MessageStatus = 'pending' | 'approved' | 'rejected' | 'flagged';
+export type IdentityType = 'ephemeral' | 'persistent' | 'task-bound';
+export type SecurityLevel = 'default-deny' | 'restricted' | 'monitored' | 'open';
+
+export interface Forum {
+  id: string;
+  name: string;
+  description: string;
+  status: ForumStatus;
+  securityLevel: SecurityLevel;
+  createdBy: string;
+  createdAt: string;
+  messageCount: number;
+  participantCount: number;
+  requiresApproval: boolean;
+  auditEnabled: boolean;
+  honeyTokensDeployed: number;
+}
+
+export interface ForumMessage {
+  id: string;
+  forumId: string;
+  authorId: string;
+  authorName: string;
+  authorTeam: Team;
+  authorIdentity: IdentityType;
+  sessionId: string;
+  timestamp: string;
+  content: string;
+  status: MessageStatus;
+  approvedBy?: string;
+  approvedAt?: string;
+  flaggedReason?: string;
+  metadata: {
+    ip: string;
+    userAgent: string;
+    executionContext: string;
+    tokenExpiry: string;
+  };
+}
+
+export interface AgentIdentity {
+  id: string;
+  agentId: string;
+  sessionId: string;
+  type: IdentityType;
+  issuedAt: string;
+  expiresAt: string;
+  scopes: string[];
+  revoked: boolean;
+  revokedAt?: string;
+  revokedReason?: string;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  actor: string;
+  action: string;
+  target: string;
+  result: 'success' | 'failure' | 'blocked';
+  ip: string;
+  sessionId: string;
+  details: Record<string, unknown>;
+  immutable: boolean;
+  externalStorage: boolean;
+}
+
+export interface HoneyToken {
+  id: string;
+  forumId: string;
+  type: 'fake-solution' | 'decoy-credentials' | 'trap-endpoint';
+  deployedAt: string;
+  triggered: boolean;
+  triggeredBy?: string;
+  triggeredAt?: string;
+  alertSent: boolean;
+}
+
+export interface ApprovalGate {
+  id: string;
+  messageId: string;
+  requestedBy: string;
+  requestedAt: string;
+  approvedBy?: string;
+  approvedAt?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  reason?: string;
+}

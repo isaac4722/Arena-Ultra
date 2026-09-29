@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { Match, Agent, WorldAsset, Action, Score, GameEvent } from '../types';
+import { Match, Agent, WorldAsset, Action, Score, GameEvent, Forum, ForumMessage, AuditLogEntry, HoneyToken } from '../types';
 import { mockMatches, mockAgents, mockAssets, mockActions, mockScores, mockEvents } from '../data/mockData';
+import { mockForums, mockForumMessages, mockAuditLog, mockHoneyTokens } from '../data/forumData';
 
 interface GameState {
   // Data
@@ -10,6 +11,10 @@ interface GameState {
   actions: Action[];
   scores: Score[];
   events: GameEvent[];
+  forums: Forum[];
+  forumMessages: ForumMessage[];
+  auditLog: AuditLogEntry[];
+  honeyTokens: HoneyToken[];
   
   // UI State
   activeMatchId: string;
@@ -50,6 +55,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   actions: mockActions,
   scores: mockScores,
   events: mockEvents,
+  forums: mockForums,
+  forumMessages: mockForumMessages,
+  auditLog: mockAuditLog,
+  honeyTokens: mockHoneyTokens,
   
   activeMatchId: 'm1',
   selectedAssetId: null,
