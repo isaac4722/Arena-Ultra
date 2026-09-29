@@ -14,6 +14,18 @@ export default function ThreatIntelligence() {
 
   const selectedIncidentData = threatIncidents.find(i => i.id === selectedIncident);
 
+  if (threatIncidents.length === 0 && emergentBehaviors.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <AlertTriangle className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No threat intelligence data</p>
+          <p className="text-gray-500 text-sm">Threat data will be populated as incidents are detected</p>
+        </div>
+      </div>
+    );
+  }
+
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case 'critical': return 'text-red-400 bg-red-500/10 border-red-500/30';

@@ -3,6 +3,18 @@ import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, Cartesia
 import { analyticsData } from '../data/mockData';
 
 export default function Analytics() {
+  if (analyticsData.actionsPerMinute.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <BarChart3 className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No analytics data</p>
+          <p className="text-gray-500 text-sm">Analytics will be generated during active matches</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}

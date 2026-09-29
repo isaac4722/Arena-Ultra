@@ -15,6 +15,18 @@ export default function Timeline() {
     return true;
   });
 
+  if (matchActions.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <Clock className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No events recorded</p>
+          <p className="text-gray-500 text-sm">Timeline events will appear during active matches</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-5xl mx-auto">
       {/* Header */}

@@ -75,11 +75,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   replaySpeed: 1,
   replayPosition: 0,
   sidebarCollapsed: false,
-  notifications: [
-    { id: 'n1', type: 'attack', message: 'API Server compromised via SQL injection', timestamp: '2026-01-15T10:10:00Z', team: 'red' },
-    { id: 'n2', type: 'alert', message: 'Lateral movement detected: api-server → user-credentials', timestamp: '2026-01-15T10:11:00Z', team: 'red' },
-    { id: 'n3', type: 'defense', message: 'Anomaly detection triggered on api-server', timestamp: '2026-01-15T10:12:00Z', team: 'blue' },
-  ],
+  notifications: [],
   
   setActiveMatch: (id) => set({ activeMatchId: id }),
   selectAsset: (id) => set({ selectedAssetId: id }),

@@ -74,6 +74,13 @@ export default function Lobby() {
       {/* Match List */}
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-gray-300">Active & Recent Matches</h2>
+        {matches.length === 0 && (
+          <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-12 text-center">
+            <Shield className="w-16 h-16 text-gray-700 mx-auto mb-4" />
+            <p className="text-gray-400 text-lg mb-2">No matches available</p>
+            <p className="text-gray-500 text-sm">Create a new match to get started</p>
+          </div>
+        )}
         {matches.map((match) => {
           const matchAgents = agents.filter(a => a.matchId === match.id);
           return (

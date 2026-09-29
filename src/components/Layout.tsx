@@ -84,9 +84,7 @@ export default function Layout() {
         {/* Top Bar */}
         <header className="h-12 border-b border-cyan-900/30 bg-gray-900/50 flex items-center justify-between px-4 backdrop-blur-sm">
           <div className="flex items-center gap-4">
-            <span className="text-xs text-gray-500 font-mono">MATCH: Operation Nightfall</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/30">ACTIVE</span>
-            <span className="text-xs text-gray-500">Turn 12/50</span>
+            <span className="text-xs text-gray-500 font-mono">ARENA ULTRA v3.0</span>
           </div>
           <div className="flex items-center gap-3">
             {/* Notifications */}

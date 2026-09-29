@@ -8,6 +8,18 @@ export default function WorldMap() {
   const selectedAsset = matchAssets.find(a => a.id === selectedAssetId);
   const [hoveredAsset, setHoveredAsset] = useState<string | null>(null);
 
+  if (matchAssets.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <Globe className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No world state available</p>
+          <p className="text-gray-500 text-sm">Assets will appear when a match is active</p>
+        </div>
+      </div>
+    );
+  }
+
   const getStateColor = (state: string) => {
     switch (state) {
       case 'secure': return { fill: '#10b981', stroke: '#059669', glow: 'rgba(16,185,129,0.3)' };

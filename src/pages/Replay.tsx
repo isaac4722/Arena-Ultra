@@ -28,7 +28,19 @@ export default function Replay() {
   }, [isPlaying, speed, matchActions.length]);
 
   const currentAction = matchActions[currentStep];
-  const progress = ((currentStep + 1) / matchActions.length) * 100;
+  const progress = matchActions.length > 0 ? ((currentStep + 1) / matchActions.length) * 100 : 0;
+
+  if (matchActions.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <Play className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No replay data available</p>
+          <p className="text-gray-500 text-sm">Replays will be available after matches are completed</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleStepClick = (index: number) => {
     setCurrentStep(index);

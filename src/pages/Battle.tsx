@@ -53,6 +53,18 @@ export default function Battle() {
     }
   };
 
+  if (matchActions.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <Swords className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No active match</p>
+          <p className="text-gray-500 text-sm">Select a match from the Lobby to begin</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-full">
       {/* Left Panel - Score & Turn Info */}

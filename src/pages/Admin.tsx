@@ -14,6 +14,18 @@ export default function Admin() {
     { id: 'leaderboard' as const, label: 'Leaderboard', icon: Settings },
   ];
 
+  if (agents.length === 0 && matches.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <Settings className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">Administration panel</p>
+          <p className="text-gray-500 text-sm">No agents or matches configured yet</p>
+        </div>
+      </div>
+    );
+  }
+
   const auditEntries = [
     { id: '1', actor: 'admin', action: 'match.create', target: 'm1', ip: '10.0.0.1', timestamp: '2026-01-15T10:00:00Z' },
     { id: '2', actor: 'ag1', action: 'agent.join', target: 'm1', ip: '192.168.1.100', timestamp: '2026-01-15T10:01:00Z' },

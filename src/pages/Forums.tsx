@@ -14,6 +14,18 @@ export default function Forums() {
   const selectedForumData = forums.find(f => f.id === selectedForum);
   const filteredMessages = forumMessages.filter(m => m.forumId === selectedForum);
 
+  if (forums.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="text-center">
+          <MessageSquare className="w-20 h-20 text-gray-700 mx-auto mb-4" />
+          <p className="text-gray-400 text-xl mb-2">No forums available</p>
+          <p className="text-gray-500 text-sm">Professional forums will be created when matches begin</p>
+        </div>
+      </div>
+    );
+  }
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'text-green-400 bg-green-500/10 border-green-500/30';
